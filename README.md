@@ -1,6 +1,8 @@
 # Bingo Caller for Cards with Images
 
-This python desktop application can be used to displaying images at random without repeats during a bingo round. The current setup is based off:
+*Note* - this repository was assisted by ChatGPT technology
+
+If you're using custom Bingo cards with images this caller generator is for your! This python desktop application can be used to displaying images at random without repeats during a bingo round. The current setup is based off:
 * [Pokemon Bingo Cards 1](https://www.teacherspayteachers.com/Product/Pokemon-Bingo-30-Boards-25-Pictures-16028119) - Images in local directory `pokemon-1`
   * Center image is the "Free Space" so there will be no generated image for it 
 * [Pokemon Bingo Cards 2](https://www.teacherspayteachers.com/Product/Pokemon-Bingo-30-Boards-25-Pictures-16028119) - Images in local directory `pokemon-2`
@@ -19,6 +21,9 @@ Your choice of images are loaded automatically from a configured directory, and 
 * Start a new round at any time
 * Option to Browse previously shown images
 * Keyboard-driven interface
+
+## Related Docs
+For tests see: [testing.md](/testing.md). For details on the application structure see [architecture](/architecture.md)
 
 ---
 
@@ -58,15 +63,13 @@ image_directory: pokemon-1
 
 This tells the application to load all supported image files from the `pokemon-1` directory.
 
-You may also specify a full path.
-
-macOS / Linux:
+Full path examples `macOS / Linux`:
 
 ```yaml
 image_directory: /Users/username/path/to/images
 ```
 
-Windows:
+`Windows`:
 
 ```yaml
 image_directory: C:\Users\username\path\to\images
@@ -83,21 +86,9 @@ The application automatically loads:
 
 Image discovery is recursive, meaning images contained in subdirectories are automatically included.
 
-Example:
-
-```text
-pokemon/
-├── gen1/
-├── gen2/
-├── gen3/
-└── gen4/
-```
-
-All supported images within these folders will be discovered automatically.
-
 ---
 
-# Running the Application
+# Running the Bingo Caller Application
 
 From the project directory:
 
@@ -190,121 +181,6 @@ The application automatically:
 
 For larger image viewing, maximize the application window.
 
----
-# Running tests
-
-The project uses pytests to run unit/integration tests of the application. To run the pytest make sure your terminal is set to the current project repo to execute the following commands:
-* Run all tests: `pytest`
-* Run with rebose output: `pytest -v`
-* Run with coverage run:
-  * `pip install pytest-cov` - installs the coverage plugin
-  * `pytest --cov=. --cov-report=term-missing`
-
-## Test Coverage Overview
-### Current Coverage
-The automated test suite primarily validates:
-
-* Round management logic
-* History navigation logic
-* YAML configuration loading
-* Image file discovery
-* Image viewer sizing calculations
-* Error handling and edge cases
-
-The following areas are intentionally excluded from unit testing:
-
-* Actual Tkinter rendering behavior
-* Keyboard event handling
-* Window management performed by the operating system
-* Manual visual verification of image appearance
-
-These areas are better validated through manual testing because they depend on GUI framework behavior rather than application logic.
-
-### RoundManager Tests (tests/test_round_manager.py)
-Coverage includes:
-
-#### Round Initialization
-* Verifies a new round loads all available images.
-* Verifies history is cleared when a new round starts.
-
-#### Random Image Selection
-* Verifies images are not repeated within a round.
-* Verifies all images can be shown exactly once.
-* Verifies `None` is returned when a round is exhausted.
-
-#### History Tracking
-* Verifies displayed images are added to history.
-* Verifies history count is tracked correctly.
-* Verifies remaining image count is tracked correctly.
-
-#### History Navigation
-* Verifies history mode begins with the most recently displayed image.
-* Verifies navigation to previous images.
-* Verifies navigation to more recent images.
-* Verifies navigation stops correctly at the beginning of history.
-* Verifies history mode cannot be entered when no images have been shown.
-
-### ImageRepository Tests (tests/test_image_repository.py)
-Coverage includes:
-
-#### Configuration Loading
-* Verifies YAML configuration files can be loaded.
-* Verifies image directories are read correctly from configuration.
-
-#### Image Discovery
-* Verifies supported image files are discovered.
-* Verifies image discovery works recursively through subdirectories.
-* Verifies non-image files are ignored.
-* Verifies discovered image lists are returned correctly.
-
-#### Error Handling
-* Verifies missing YAML files raise `FileNotFoundError`.
-* Verifies missing `image_directory` configuration raises an exception.
-* Verifies nonexistent image directories raise `FileNotFoundError`.
-* Verifies empty image directories raise an exception.
-
-#### Path Resolution
-* Verifies relative paths are resolved relative to the YAML file location.
-* Verifies absolute paths are supported.
-
-### ImageViewer Tests (tests/test_image_viewer.py)
-Coverage includes:
-
-#### Image Loading
-* Verifies images are opened correctly.
-* Verifies image rendering is initiated correctly.
-
-#### Dynamic Scaling
-* Verifies image resizing logic is executed.
-* Verifies image dimensions are calculated from the current window size.
-* Verifies minimum display dimensions are enforced.
-
-#### User Interface Updates
-* Verifies the window title is updated with the current image name.
-* Verifies the image label is updated with the rendered image.
-* Verifies image references are retained to prevent Tkinter garbage collection issues.
-
-#### Resilience
-* Verifies rendering logic functions correctly for both large and small window dimensions.
-
----
-### Manual Testing Checklist
-
-Before using the application for Bingo, you should execute following workflow to verify the application's core behavior:
-
-* Start a new round.
-* Display multiple random images.
-* Confirm images are not repeated within a round.
-* Confirm all images become available again after starting a new round.
-* Enter history mode.
-* Navigate backward and forward through history.
-* Return to main mode.
-* Resize the application window.
-* Verify images resize appropriately.
-* Verify status and help text remain visible.
-* Verify application exits cleanly.
-
----
 # Future Enhancements - Whenever I get free time from parenting
 
 Potential future improvements:
@@ -318,67 +194,3 @@ Potential future improvements:
 * Full-screen display
 * Smoother dynamic rendering when resizing the window
 
----
-# More Nitty Gritty Details
-## Project Structure
-```text
-bingo-image-caller/
-├── app.py
-├── image_repository.py
-├── round_manager.py
-├── image_viewer.py
-├── main_window.py
-├── images.yaml
-└── pokemon-1/
-    └── ...png
-└── pokemon-2/
-    └── ...png
-
-```
-
-### Components
-#### app.py
-Application entry point.
-
-Responsibilities:
-* Load application configuration
-* Create application components
-* Start the user interface
-
-
-#### image_repository.py
-Image discovery and configuration loading
-
-Responsibilities:
-* Read `images.yaml`
-* Locate image directories
-* Find supported image files
-
-
-#### round_manager.py
-Core application logic
-
-Responsibilities:
-* Start new rounds
-* Randomize image order
-* Prevent duplicate images within a round
-* Track image history
-* Support history navigation
-
-
-#### image_viewer.py
-Image display functionality.
-
-Responsibilities:
-* Load images
-* Resize images to fit the window
-* Display images using Tkinter
-
-
-#### main_window.py
-Main User interface 
-
-Responsibilities:
-* Create application window
-* Handle keyboard input
-* Coordinate UI interactions with the round manager
