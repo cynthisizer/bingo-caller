@@ -23,7 +23,7 @@ Your choice of images are loaded automatically from a configured directory, and 
 * Keyboard-driven interface
 
 ## Related Docs
-For tests see: [testing.md](/testing.md). For details on the application structure see [architecture](/architecture.md)
+For tests see: [testing.md](/testing.md).  For details on the application structure see [architecture](/architecture.md)
 
 ---
 
@@ -151,7 +151,7 @@ History contains all images shown during the current round.
 The history counter should reset to 1 and a starting image of the new round is displayed
 
 # Troubleshooting
-## "Image directory does not exist"
+## _"Image directory does not exist"_
 Verify that the path specified in `images.yaml` is correct.
 
 Example with starting directory: `image_directory: pokemon-1`
@@ -166,11 +166,11 @@ bingo-caller/
 ...
 ```
 
-## "No images found"
+## _"No images found"_
 
 Verify that the configured directory contains supported image file types.
 
-## Images appear too large or too small
+## _Images appear too large or too small_
 
 Images are dynamically scaled based on the current window size.
 
@@ -183,8 +183,7 @@ For larger image viewing, maximize the application window.
 
 # Future Enhancements - Whenever I get free time from parenting
 
-Potential future improvements:
-
+## Potential future improvements:
 * Multiple image directories
 * Image categories and tags
 * Persistent history between sessions
