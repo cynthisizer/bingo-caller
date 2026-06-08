@@ -1,4 +1,4 @@
-# Bingo Caller with Iamges
+# Bingo Caller for Cards with Images
 
 This python desktop application can be used to displaying images at random without repeats during a bingo round. The current setup is based off:
 * [Pokemon Bingo Cards 1](https://www.teacherspayteachers.com/Product/Pokemon-Bingo-30-Boards-25-Pictures-16028119) - Images in local directory `pokemon-1`
@@ -7,6 +7,8 @@ This python desktop application can be used to displaying images at random witho
   * Center image is the "Free Space" so there will be no generated image for it
 
 Your choice of images are loaded automatically from a configured directory, and previously shown images within the current round can be reviewed using a history browser.
+
+![Bingo Generator](sample_image.png)
 
 ## Features
 
