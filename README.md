@@ -5,7 +5,7 @@
 If you're using custom Bingo cards with images this caller generator is for your! This python desktop application can be used to displaying images at random without repeats during a bingo round. The current setup is based off:
 * [Pokemon Bingo Cards 1](https://www.teacherspayteachers.com/Product/Pokemon-Bingo-30-Boards-25-Pictures-16028119) - Images in local directory `pokemon-1`
   * Center image is the "Free Space" so there will be no generated image for it 
-* [Pokemon Bingo Cards 2](https://www.teacherspayteachers.com/Product/Pokemon-Bingo-30-Boards-25-Pictures-16028119) - Images in local directory `pokemon-2`
+* [Pokemon Bingo Cards 2](https://www.teacherspayteachers.com/Product/Pokemon-Bingo-30-Boards-45-Pictures-16028136) - Images in local directory `pokemon-2`
   * Center image is the "Free Space" so there will be no generated image for it
 
 Your choice of images are loaded automatically from a configured directory, and previously shown images within the current round can be reviewed using a history browser.
@@ -13,7 +13,6 @@ Your choice of images are loaded automatically from a configured directory, and 
 ![Bingo Generator](sample_image.png)
 
 ## Features
-
 * Load images from a configured directory
   * Automatic discovery of image files in subdirectories
 * Random image selection with a counter of how many have been shown during the current round
@@ -25,15 +24,16 @@ Your choice of images are loaded automatically from a configured directory, and 
 ## Related Docs
 For tests see: [testing.md](/testing.md).  For details on the application structure see [architecture](/architecture.md)
 
+
 ---
 
-# Requirements
+## Requirements
 
-## Python
+### Python
 
 Python 3.14 or newer is recommended.
 
-## Dependencies
+#### Dependencies
 
 Install required packages:
 
@@ -51,7 +51,7 @@ python3 -m pip install -r requirements.txt
 ```
 ---
 
-# Configuration
+## Bingo Image Configuration
 
 The application uses an `images.yaml` file located in the same directory as `app.py` that defines where the images are for the bingo caller. You can configure the relative or absolute path of the image directory.
 
@@ -74,7 +74,7 @@ image_directory: /Users/username/path/to/images
 ```yaml
 image_directory: C:\Users\username\path\to\images
 ```
-## Supported Image Formats
+### Supported Image Formats
 
 The application automatically loads:
 
@@ -88,7 +88,7 @@ Image discovery is recursive, meaning images contained in subdirectories are aut
 
 ---
 
-# Running the Bingo Caller Application
+## Running the Bingo Caller Application
 
 From the project directory:
 
@@ -102,9 +102,9 @@ python3 app.py
 
 ---
 
-# Controls
+## Controls
 
-## Main Mode
+### Main Mode
 
 | Key | Action                 |
 | --- | ---------------------- |
